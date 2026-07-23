@@ -1,0 +1,25 @@
+# ============================================
+# Railway Config for Dub.co (Monorepo)
+# ============================================
+# This file should be placed at the ROOT of
+# the Dub monorepo repository.
+# ============================================
+
+[build]
+# Use Dockerfile for reliable, reproducible builds
+dockerfilePath = "Dockerfile"
+
+[deploy]
+# Start the Next.js production server
+startCommand = "node apps/web/.next/standalone/apps/web/server.js"
+
+# Health check to verify the app is running
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+
+# Restart policy
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
+
+# Number of replicas (start with 1)
+numReplicas = 1
