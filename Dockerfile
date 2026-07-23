@@ -15,7 +15,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY . .
 
 # Install all workspace dependencies
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # Generate Prisma Client (doesn't require DB connection)
 WORKDIR /app/apps/web
