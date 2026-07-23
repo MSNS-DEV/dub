@@ -69,8 +69,9 @@ export function getJobsEndpointUrl(name: string) {
 }
 
 // QStash label: user-provided tag first, job name appended for log filtering
-export function buildJobLabel(name: string, label?: string) {
-  return label ? `${label},${name}` : name;
+export function buildJobLabel(name: string, label?: string | string[]) {
+  const labelStr = Array.isArray(label) ? label.join(",") : label;
+  return labelStr ? `${labelStr},${name}` : name;
 }
 
 // QStash deduplicationId: user-provided id first, job name appended for cross-job isolation
