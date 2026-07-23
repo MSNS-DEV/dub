@@ -9,6 +9,7 @@ FROM node:20-alpine AS builder
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
@@ -20,7 +21,7 @@ RUN pnpm install --no-frozen-lockfile
 
 # Generate Prisma Client (doesn't require DB connection)
 WORKDIR /app/apps/web
-RUN pnpm exec prisma generate --schema=./prisma/schema
+RUN touch .env && pnpm exec prisma generate --schema=./prisma/schema
 
 # Build shared workspace packages first, then the web app
 WORKDIR /app
